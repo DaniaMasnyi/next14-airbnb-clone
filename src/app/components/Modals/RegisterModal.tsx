@@ -8,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
+import Heading from "../Heading";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal(); // Виправлено назву змінної
@@ -41,6 +42,11 @@ const RegisterModal = () => {
       });
   };
 
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading title="Welcome to Airbnb" subtitle="Create an account" />
+    </div>
+  );
   return (
     <Modal
       disabled={isLoading}
@@ -49,30 +55,8 @@ const RegisterModal = () => {
       actionLabel="Continue"
       onClose={registerModal.onClose} // Виправлено використання registerModal
       onSubmit={handleSubmit(onSubmit)}
-    >
-      {/* Додано тіло модального вікна */}
-      <div>
-        <input
-          id="name"
-          {...register("name")}
-          placeholder="Name"
-          disabled={isLoading}
-        />
-        <input
-          id="email"
-          {...register("email")}
-          placeholder="Email"
-          disabled={isLoading}
-        />
-        <input
-          id="password"
-          {...register("password")}
-          placeholder="Password"
-          type="password"
-          disabled={isLoading}
-        />
-      </div>
-    </Modal>
+      body={bodyContent}
+    />
   );
 };
 
