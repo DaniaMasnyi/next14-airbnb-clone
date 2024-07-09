@@ -10,6 +10,8 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
+import toast from "react-hot-toast";
+import Button from "../Button";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal(); // Виправлено назву змінної
@@ -36,7 +38,7 @@ const RegisterModal = () => {
         registerModal.onClose(); // Виправлено використання registerModal
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Something went wrong.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -73,6 +75,18 @@ const RegisterModal = () => {
       />
     </div>
   );
+
+  const footerContent = (
+    <div className="flex flex-col gap-4 mt-3">
+      <hr />
+      <Button
+        outline
+        label="Continue with Google"
+        icon={FcGoogle}
+        onClick={() => {}}
+      />
+    </div>
+  );
   return (
     <Modal
       disabled={isLoading}
@@ -82,6 +96,7 @@ const RegisterModal = () => {
       onClose={registerModal.onClose} // Виправлено використання registerModal
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
+      footer={footerContent}
     />
   );
 };
