@@ -14,8 +14,10 @@ import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
+  const router = useRouter();
   const registerModal = useRegisterModal(); // Виправлено назву змінної
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +38,19 @@ const LoginModal = () => {
 
     signIn("credentials", {
       ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged In");
+        router.refresh();
+        loginModal.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
     });
   };
 
