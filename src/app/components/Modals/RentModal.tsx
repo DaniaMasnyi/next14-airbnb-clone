@@ -1,15 +1,16 @@
 'use client';
 
-import useRentModal from '@/app/hooks/useRentModal'
-import dynamic from 'next/dynamic'
-import { useMemo, useState } from 'react'
-import { FieldValues, useForm } from 'react-hook-form'
-import Heading from '../Heading'
-import CategoryInput from '../inputs/CategoryInput'
-import Counter from '../inputs/Counter'
-import CountrySelect from '../inputs/CountrySelect'
-import { categories } from '../navbar/Categories'
-import Modal from './Modal'
+import useRentModal from '@/app/hooks/useRentModal';
+import dynamic from 'next/dynamic';
+import { useMemo, useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import Heading from '../Heading';
+import CategoryInput from '../inputs/CategoryInput';
+import Counter from '../inputs/Counter';
+import CountrySelect from '../inputs/CountrySelect';
+import ImageUpload from '../inputs/ImageUpload';
+import { categories } from '../navbar/Categories';
+import Modal from './Modal';
 
 enum STEPS {
 	CATEGORY = 0,
@@ -169,8 +170,14 @@ const RentModal = () => {
 
 	if (step === STEPS.IMAGES) {
 		bodyContent = (
-			
-		)
+			<div className='flex flex-col gap-8'>
+				<Heading
+					title='Add a photo of your place'
+					subtitle='Show guests what your place looks like!'
+				/>
+				<ImageUpload />
+			</div>
+		);
 	}
 
 	return (
