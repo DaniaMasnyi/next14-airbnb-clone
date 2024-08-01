@@ -49,12 +49,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
           '
 				>
 					<TbPhotoPlus size={50} />
-					<div className='font-semibold'>Upload Image</div>
+					<div className='font-semibold text-lg'>Upload Image</div>
 					{value && (
 						<img
 							src={value}
 							alt='Uploaded Image'
-							className='absolute inset-0 w-full h-full object-cover'
+							className='absolute inset-0 w-full h-full'
 						/>
 					)}
 				</div>
