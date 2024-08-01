@@ -1,6 +1,5 @@
-'use client';
-
 import { CldUploadWidget } from 'next-cloudinary';
+import Image from 'next/image'; // Імпорт компонента Image
 import { useCallback } from 'react';
 import { TbPhotoPlus } from 'react-icons/tb';
 
@@ -33,20 +32,20 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
 				<div
 					onClick={() => open?.()}
 					className='
-            relative
-            cursor-pointer
-            transition
-            border-dashed
-            border-2
-            p-20
-            border-neutral-300
-            flex
-            flex-col
-            justify-center
-            items-center
-            gap-4
-            text-neutral-600
-          '
+						relative
+						cursor-pointer
+						transition
+						border-dashed
+						border-2
+						p-20
+						border-neutral-300
+						flex
+						flex-col
+						justify-center
+						items-center
+						gap-4
+						text-neutral-600
+					'
 				>
 					<TbPhotoPlus size={50} />
 					<div className='font-semibold text-lg'>Upload Image</div>
