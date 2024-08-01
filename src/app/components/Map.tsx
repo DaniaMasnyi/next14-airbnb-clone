@@ -1,18 +1,17 @@
 'use client';
 
 import L from 'leaflet';
-import { MapContainer } from 'react-leaflet';
-
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import marketShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
-// @ts-ignore
+// Correct the spelling of `markerShadow` (was `marketShadow`).
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-	iconUrl: markerIcon.src,
-	iconRetinaUrl: markerIcon.src,
-	shadowUrl: marketShadow.src,
+	iconUrl: markerIcon,
+	iconRetinaUrl: markerIcon,
+	shadowUrl: markerShadow,
 });
 
 interface MapProps {
@@ -20,13 +19,20 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ center }) => {
-	return;
-	<MapContainer
-		center={(center as L.LatLngExpression) || [51, -0.09]}
-		zoom={center ? 4 : 2}
-		scrollWheelZoom={false}
-		className='h-[35vh] rounded-lg'
-	></MapContainer>;
+	return (
+		<MapContainer
+			center={(center as L.LatLngExpression) || [51, -0.09]}
+			zoom={center ? 4 : 2}
+			scrollWheelZoom={false}
+			className='h-[35vh] rounded-lg'
+		>
+			<TileLayer
+				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+			/>
+			{center && <Marker position={center as L.LatLngExpression} />}
+		</MapContainer>
+	);
 };
 
 export default Map;
