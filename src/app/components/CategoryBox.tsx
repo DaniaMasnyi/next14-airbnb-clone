@@ -1,54 +1,59 @@
-"use client";
+'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import queryString from "query-string";
-import { useCallback } from "react";
-import { IconType } from "react-icons";
+import { useRouter, useSearchParams } from 'next/navigation';
+import queryString from 'query-string';
+import { useCallback, useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
 
 interface CategoryBoxProps {
-  icon: IconType;
-  label: string;
-  selected?: boolean;
+	icon: IconType;
+	label: string;
+	selected?: boolean;
 }
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({
-  icon: Icon,
-  label,
-  selected,
-}) => {
-  const router = useRouter();
-  const params = useSearchParams();
+const CategoryBox: React.FC<CategoryBoxProps> = ({ icon: Icon, label }) => {
+	const router = useRouter();
+	const params = useSearchParams();
+	const [isSelected, setIsSelected] = useState(false);
 
-  const handleClick = useCallback(() => {
-    let currentQuery = {};
+	useEffect(() => {
+		if (params) {
+			const currentCategory = params.get('category');
+			setIsSelected(currentCategory === label);
+		}
+	}, [params, label]);
 
-    if (params) {
-      currentQuery = queryString.parse(params.toString());
-    }
+	const handleClick = useCallback(() => {
+		let currentQuery = {};
 
-    const updatedQuery: any = {
-      ...currentQuery,
-      category: label,
-    };
+		if (params) {
+			currentQuery = queryString.parse(params.toString());
+		}
 
-    if (params?.get("category") == label) {
-      delete updatedQuery.category;
-    }
+		const updatedQuery: any = {
+			...currentQuery,
+			category: label,
+		};
 
-    const url = queryString.stringifyUrl(
-      {
-        url: "/",
-        query: updatedQuery,
-      },
-      { skipNull: true }
-    );
+		if (isSelected) {
+			delete updatedQuery.category;
+		}
 
-    router.push(url);
-  }, []);
+		const url = queryString.stringifyUrl(
+			{
+				url: '/',
+				query: updatedQuery,
+			},
+			{ skipNull: true }
+		);
 
-  return (
-    <div
-      className={`
+		router.push(url);
+	}, [isSelected, label, params, router]);
+
+	return (
+		<div
+			onClick={handleClick}
+			className={`
         flex
         flex-col
         items-center
@@ -59,14 +64,14 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         hover:text-neutral-800
         transition
         cursor-pointer
-        ${selected ? "text-neutral-800" : "text-neutral-500"}
-        ${selected ? "border-b-neutral-800" : "border-transparent"}
+        ${isSelected ? 'text-neutral-800' : 'text-neutral-500'}
+        ${isSelected ? 'border-b-neutral-800' : 'border-transparent'}
       `}
-    >
-      <Icon size={25} />
-      <div className="font-medium text-sm">{label}</div>
-    </div>
-  );
+		>
+			<Icon size={25} />
+			<div className='font-medium text-sm'>{label}</div>
+		</div>
+	);
 };
 
 export default CategoryBox;
