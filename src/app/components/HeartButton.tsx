@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { AiOutlineHeart } from 'react-icons/ai'
-import { SafeUser } from '../types'
+import { AiOutlineHeart } from 'react-icons/ai';
+import { SafeUser } from '../types';
 
 interface HeartButtonProps {
 	listingId: string;
@@ -10,29 +10,32 @@ interface HeartButtonProps {
 
 const HeartButton: React.FC<HeartButtonProps> = ({
 	listingId,
-	currentUser
+	currentUser,
 }) => {
 	const hasFavorited = false;
-	const toggleFavorite = () = {};
+	const toggleFavorite = () => {};
 
-	return <div
-	onClick={toggleFavorite}
-	className="
-	relative
-	hover:opacity-80
-	transition
-	cursor-pointer
-	">
-		<AiOutlineHeart
-		size={28}
-		className='
-		fill-white
-		absolute
-		-top-[2px]
-		-right-[2px]
-		'
-		/>
-	</div>
+	return (
+		<div
+			onClick={toggleFavorite}
+			className='
+        relative
+        hover:opacity-80
+        transition
+        cursor-pointer
+      '
+		>
+			<AiOutlineHeart
+				size={28}
+				className='
+          fill-white
+          absolute
+          top-[2px]
+          right-[2px]
+        '
+			/>
+		</div>
+	);
 };
 
 export default HeartButton;
