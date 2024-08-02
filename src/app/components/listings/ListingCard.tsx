@@ -46,11 +46,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 	);
 
 	const price = useMemo(() => {
-		if (reservation) {
-			return reservation.totalPrice;
-		}
-
-		return data.price;
+		return reservation ? reservation.totalPrice : data.price;
 	}, [reservation, data.price]);
 
 	const reservationDate = useMemo(() => {
@@ -67,31 +63,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
 	return (
 		<div
 			onClick={() => router.push(`/listing/${data.id}`)}
-			className='
-	col-span-1 cursor-pointer group
-	'
+			className='col-span-1 cursor-pointer group'
 		>
 			<div className='flex flex-col gap-2 w-full'>
-				<div
-					className='
-			aspect-square
-				w-full
-				relative
-				overflow-hidden
-				rounded-xl
-				'
-				>
+				<div className='aspect-square w-full relative overflow-hidden rounded-xl'>
 					<Image
 						fill
 						alt='Listing'
 						src={data.imageSrc}
-						className='
-object-cover
-h-full
-w-full
-group-hover:scale-110
-transition
-'
+						className='object-cover h-full w-full group-hover:scale-110 transition-transform'
 					/>
 				</div>
 			</div>
