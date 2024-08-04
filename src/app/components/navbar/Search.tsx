@@ -3,12 +3,13 @@
 import useCountries from '@/app/hooks/useCountries';
 import useSearchModal from '@/app/hooks/useSearchModal';
 import { differenceInDays } from 'date-fns';
+import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
 const Search = () => {
 	const searchModal = useSearchModal();
-	const params = useSearchModal();
+	const params = useSearchParams();
 	const { getByValue } = useCountries();
 
 	const locationValue = params?.get('locationValue');
