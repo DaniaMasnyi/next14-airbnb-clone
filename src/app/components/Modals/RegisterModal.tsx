@@ -15,7 +15,7 @@ import Input from '../inputs/Input';
 import Modal from './Modal';
 
 const RegisterModal = () => {
-	const registerModal = useRegisterModal(); // Виправлено назву змінної
+	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -37,7 +37,9 @@ const RegisterModal = () => {
 		axios
 			.post('/api/register', data)
 			.then(() => {
-				registerModal.onClose(); // Виправлено використання registerModal
+				toast.success('Success!');
+				loginModal.onOpen();
+				registerModal.onClose();
 			})
 			.catch(error => {
 				toast.error('Something went wrong.');
@@ -120,10 +122,10 @@ const RegisterModal = () => {
 	return (
 		<Modal
 			disabled={isLoading}
-			isOpen={registerModal.isOpen} // Виправлено використання registerModal
+			isOpen={registerModal.isOpen}
 			title='Register'
 			actionLabel='Continue'
-			onClose={registerModal.onClose} // Виправлено використання registerModal
+			onClose={registerModal.onClose}
 			onSubmit={handleSubmit(onSubmit)}
 			body={bodyContent}
 			footer={footerContent}
